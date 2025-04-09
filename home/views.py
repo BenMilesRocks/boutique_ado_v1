@@ -1,4 +1,4 @@
-'''Renders page views'''
+'''Home page views'''
 from django.shortcuts import render
 
 
