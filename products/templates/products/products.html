@@ -25,8 +25,11 @@
             <div class="product-container col-10 offset-1">
                 <div class="row mt-1 mb-2"></div>
                 <div class="row">
+                    <!-- iterate through products -->
                     {% for product in products %}
                         <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
+
+                            <!-- display card for each product -->
                             <div class="card h-100 border-0">
                                 {% if product.image %}
                                 <a href="">
@@ -54,6 +57,33 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- HR below each row of products -->
+
+                        <!-- Mobile - 1 product -->
+                        {% if forloop.counter|divisibleby:1 %}
+                        <div class="col-12 d-sm-none mb-5">
+                            <hr>
+                        </div>
+                        {% endif %}
+                        <!-- Small & Medium screens - 2 products -->
+                        {% if forloop.counter|divisibleby:2 %}
+                            <div class="col-12 d-none d-sm-block d-md-block d-lg-none mb-5">
+                                <hr>
+                            </div>
+                        {% endif %}
+                        <!-- Large Screens - 3 products -->
+                        {% if forloop.counter|divisibleby:3 %}
+                            <div class="col-12 d-none d-lg-block d-xl-none mb-5">
+                                <hr>
+                            </div>
+                        {% endif %}
+                        <!-- XL Screens - 4 products -->
+                        {% if forloop.counter|divisibleby:4 %}
+                            <div class="col-12 d-none d-xl-block mb-5">
+                                <hr>
+                            </div>
+                        {% endif %}
                     {% endfor %}
                 </div>
             </div>
