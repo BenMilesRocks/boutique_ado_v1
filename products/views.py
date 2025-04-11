@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.contrib import messages
 from django.db.models import Q
+from django.db.models.functions import Lower
 from .models import Product, Category
 
 def all_products(request):
@@ -14,8 +15,27 @@ def all_products(request):
     #Sets filter variables to None, preventing issues if not entered
     query = None
     categories = None
+    sort = None
+    direction = None
 
     if request.GET:
+        # Check for sort in response
+        if 'sort' in request.GET:
+            #fetch sort result
+            sortkey = request.GET['sort']
+            #push to variable
+            sort = sortkey
+            # use sortkey to check against products
+            if sortkey == 'name':
+                sortkey = 'lower_name'
+                products = products.annotate(lower_name=Lower('name'))
+            if 'direction' in request.GET:
+                direction = request.GET['direction']
+                if direction == 'desc':
+                    sortkey = f'-{sortkey}'
+            # Apply sort to products
+            products = products.order_by(sortkey)
+
         # Check for category in response
         if 'category' in request.GET:
             #Split into list, divided by commas
@@ -38,10 +58,13 @@ def all_products(request):
             #Pass filter to Products
             products = products.filter(queries)
 
+    current_sorting = f'{sort}_{direction}'
+
     context = {
         'products' : products,
         'search_term' : query,
         'current_categories' : categories,
+        'current_sorting' : current_sorting
     }
 
     return render(request, 'products/products.html', context)
