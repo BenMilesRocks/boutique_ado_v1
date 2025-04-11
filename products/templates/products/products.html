@@ -154,3 +154,45 @@
         </div>
     </div>
 {% endblock %}
+
+{% block postload_js %}
+    {{ block.super }}
+    <script type="text/javascript">
+		$('.btt-link').click(function(e) {
+			window.scrollTo(0,0)
+		})
+	</script>
+    
+    <script type="text/javascript">
+
+        //adds an event listener to sort-selector
+        $('#sort-selector').change(function() {
+
+            var selector = $(this);
+            var currentUrl = new URL(window.location);
+
+            var selectedVal = selector.val();
+
+            //anything other than "reset"
+            if(selectedVal != "reset"){
+                //split sort & direction into two variables
+                var sort = selectedVal.split("_")[0];
+                var direction = selectedVal.split("_")[1];
+
+                //applies search parameters
+                currentUrl.searchParams.set("sort", sort);
+                currentUrl.searchParams.set("direction", direction);
+
+                //refresh page
+                window.location.replace(currentUrl);
+            } else {
+                //clear parameters
+                currentUrl.searchParams.delete("sort");
+                currentUrl.searchParams.delete("direction");
+
+                //refresh page
+                window.location.replace(currentUrl);
+            }
+        })
+    </script>
+{% endblock %}
