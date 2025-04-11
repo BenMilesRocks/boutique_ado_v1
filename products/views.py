@@ -25,14 +25,22 @@ def all_products(request):
             sortkey = request.GET['sort']
             #push to variable
             sort = sortkey
+
             # use sortkey to check against products
             if sortkey == 'name':
                 sortkey = 'lower_name'
                 products = products.annotate(lower_name=Lower('name'))
+
+            # sort by category name, not category ID
+            if sortkey == 'category':
+                sortkey = 'category__name'
+
+            # reverses list if direction == desc
             if 'direction' in request.GET:
                 direction = request.GET['direction']
                 if direction == 'desc':
                     sortkey = f'-{sortkey}'
+
             # Apply sort to products
             products = products.order_by(sortkey)
 

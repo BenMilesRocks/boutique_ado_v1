@@ -60,12 +60,16 @@
 
                     <!-- Order last on mobile, first on medium+ screens -->
                     <div class="col-12 col-md-6 order-md-first">
-
-                        <!-- Title, detailing filters applied -->
                         <p class="text-muted mt-3 text-center text-md-left">
+
+                            <!-- if search filter, adds link for all products -->
                             {% if search_term or current_categories or current_sorting != 'None_None' %}
-                                <span class="small"><a href="{% url 'products' %}" class="link-primary link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">Products Home</a> | </span>
+                                <span class="small">
+                                    <a href="{% url 'products' %}" class="link-primary link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">Products Home</a> | 
+                                </span>
                             {% endif %}
+
+                            <!-- Shows number of products, and what filters applied -->
                             {{ products|length }} Products{% if search_term %} found for <strong>"{{ search_term }}"</strong>{% endif %}
                         </p>
 
