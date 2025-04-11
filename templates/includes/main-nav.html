@@ -34,9 +34,9 @@
                 Homeware
               </a>
               <ul class="dropdown-menu">
-                <li><a href="" class="dropdown-item">Bed &amp; Bath</a></li>
-                <li><a href="" class="dropdown-item">Kitchen &amp; Dining</a></li>
-                <li><a href="" class="dropdown-item">All Homeware</a></li>
+                <li><a href="{% url 'products' %}?category=bed_bath" class="dropdown-item">Bed &amp; Bath</a></li>
+                <li><a href="{% url 'products' %}?category=kitchen_dining" class="dropdown-item">Kitchen &amp; Dining</a></li>
+                <li><a href="{% url 'products' %}?category=kitchen_dining,bed_bath" class="dropdown-item">All Homeware</a></li>
               </ul>
         </li>
 
@@ -46,10 +46,10 @@
                     Special Offers
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="" class="dropdown-item">New Arrivals</a></li>
-                    <li><a href="" class="dropdown-item">Deals</a></li>
-                    <li><a href="" class="dropdown-item">Clearance</a></li>
-                    <li><a href="" class="dropdown-item">All Specials</a></li>
+                    <li><a href="{% url 'products' %}?category=new_arrivals" class="dropdown-item">New Arrivals</a></li>
+                    <li><a href="{% url 'products' %}?category=deals" class="dropdown-item">Deals</a></li>
+                    <li><a href="{% url 'products' %}?category=clearance" class="dropdown-item">Clearance</a></li>
+                    <li><a href="{% url 'products' %}?category=new_arrivals,deals,clearance" class="dropdown-item">All Specials</a></li>
                 </ul>
         </li>
 
