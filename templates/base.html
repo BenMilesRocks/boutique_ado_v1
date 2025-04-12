@@ -58,10 +58,10 @@
             </div>
           </form>
         </div>
-        <!-- Account Dropdown -->
+        <!-- Account Dropdown & Bag -->
         <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
           <ul class="list-inline list-unstyled text-center text-lg-right my-0">
-
+            <!-- Account -->
             <li class="list-inline-item">
               <div class="dropdown">
                 <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -82,7 +82,7 @@
             </li>
             <!-- Cart -->
             <li class="list-inline-item">
-              <a class="{% if grand_total %}text-info font-weight-bold{% else %}text-black{% endif %} nav-link" href="">
+              <a class="{% if grand_total %}text-info font-weight-bold{% else %}text-black{% endif %} nav-link" href="{% url 'view_bag' %}">
                 <div class="text-center">
                   <div><i class="fas fa-shopping-bag fa-lg"></i></div>
                   <p class="my-0">
