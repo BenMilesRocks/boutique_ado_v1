@@ -15,7 +15,7 @@ def add_to_bag(request, item_id):
     # Check for product size
     size = None
     if 'product_size' in request.POST:
-        size = request.POST['size']
+        size = request.POST['product_size']
     # If bag exists in session fetches it, else create empty bag
     bag = request.session.get('bag', {})
 
