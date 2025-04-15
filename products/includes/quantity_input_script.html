@@ -1,0 +1,26 @@
+<script type="text/javascript">
+
+    // Increment button
+    $('.increment-qty').click(function(e){
+        // prevent default action (submit)
+        e.preventDefault();
+        // Finds closest input group
+        var closestInput = $(this).closest('.input-group').find('.qty-input')[0];
+        // Sets variable for the current value
+        var currentValue = parseInt($(closestInput).val());
+        // Increments by 1
+        $(closestInput).val(currentValue + 1);
+    });
+
+    // Decrement button
+    $('.decrement-qty').click(function(e){
+        // prevent default action (submit)
+        e.preventDefault();
+        // Finds closest input group
+        var closestInput = $(this).closest('.input-group').find('.qty-input')[0];
+        // Sets variable for the current value
+        var currentValue = parseInt($(closestInput).val());
+        // Decrements by 1
+        $(closestInput).val(currentValue - 1);
+    });
+</script>
