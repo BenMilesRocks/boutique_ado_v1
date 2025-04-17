@@ -65,7 +65,7 @@
                                         <p class="my-0">{{ item.quantity }}</p>
                                     </td>
                                     <td class="py-3">
-                                        <form class="form update-form" method="POST" action="">
+                                        <form class="form update-form" method="POST" action="{% url 'adjust_bag' item.item_id %}">
                                             <!-- add CSRF token, as form will be posting data -->
                                             {% csrf_token %}
 
@@ -106,10 +106,10 @@
                                         </form>
 
                                         <!-- Buttons to update quantity or remove item from bag -->
-                                        <p class="mx-1">
-                                            <a class="update-link link-info" href="#"><small>Update</small></a>
-                                            <a class="remove-item link-danger float-end" id="remove_{{ item.item_id }}" data-size="{{ item.size }}" href="#"><small>Remove</small></a>
-                                        </p>
+                                        
+                                        <a class="update-link link-info btt-link"><small>Update</small></a>
+                                        <a class="remove-item link-danger float-end btt-link" id="remove_{{ item.item_id }}" data-size="{{ item.size }}"><small>Remove</small></a>
+                                        
 
 
                                     </td>

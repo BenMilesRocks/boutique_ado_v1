@@ -84,7 +84,7 @@ def adjust_bag(request, item_id):
         if quantity > 0:
             bag[item_id] = quantity
         else:
-            bag.pop[item_id] #pylint: disable=W0104
+            bag.pop(item_id)
     # Pushes bag back to session
     request.session['bag'] = bag
 
