@@ -1,5 +1,6 @@
 '''Bag Views'''
 from django.shortcuts import render, redirect
+from django.urls import reverse
 
 def view_bag(request):
     '''Returns bag page'''
@@ -53,3 +54,39 @@ def add_to_bag(request, item_id):
 
     # Redirect to last page visited
     return redirect(redirect_url)
+
+def adjust_bag(request, item_id):
+    '''Amends the number of items in the bag'''
+
+    # Fetch variables from page
+    quantity = int(request.POST.get('quantity'))
+
+    # Check for product size
+    size = None
+    if 'product_size' in request.POST:
+        size = request.POST['product_size']
+    # If bag exists in session fetches it, else create empty bag
+    bag = request.session.get('bag', {})
+
+    # Check if product being altered has a Size
+    if size:
+
+        # If quantity > 0, update quantity
+        if quantity > 0:
+            bag[item_id]['items_by_size'][size] = quantity
+        # If quantity == 0, delete item
+        else:
+            del bag[item_id]['items_by_size'][size]
+
+    # If no size, update quantity
+    else:
+
+        if quantity > 0:
+            bag[item_id] = quantity
+        else:
+            bag.pop[item_id] #pylint: disable=W0104
+    # Pushes bag back to session
+    request.session['bag'] = bag
+
+    # Redirect to last page visited
+    return redirect(reverse('view_bag'))
