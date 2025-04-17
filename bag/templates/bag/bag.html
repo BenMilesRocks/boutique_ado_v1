@@ -75,7 +75,7 @@
                                                     <div class="input-group-text">
                                                         <button class="decrement-qty btn btn-sm btn-black rounded-0"
                                                             data-item_id="{{ item.item_id }}" id="decrement-qty_{{ item.item_id }}">
-                                                            <span class="icon">
+                                                            <span>
                                                                 <i class="fas fa-minus fa-sm"></i>
                                                             </span>
                                                         </button>
@@ -108,7 +108,7 @@
                                         <!-- Buttons to update quantity or remove item from bag -->
                                         <p class="mx-1">
                                             <a class="update-link link-info" href="#"><small>Update</small></a>
-                                            <a class="remove-item link-danger float-end" href="#" id="remove_{{ item.item_id }}" data-size="{{ item.size }}"><small>Remove</small></a>
+                                            <a class="remove-item link-danger float-end" id="remove_{{ item.item_id }}" data-size="{{ item.size }}" href="#"><small>Remove</small></a>
                                         </p>
 
 
@@ -177,7 +177,7 @@
 
 {% endblock %}
 
-{% block postloadjs %}
+{% block postload_js %}
 {{ block.super }}
 {% include 'products/includes/quantity_input_script.html' %}
 <script type="text/javascript">
