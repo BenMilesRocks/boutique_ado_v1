@@ -1,5 +1,5 @@
 '''Bag Views'''
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.urls import reverse
 
 def view_bag(request):
@@ -77,6 +77,9 @@ def adjust_bag(request, item_id):
         # If quantity == 0, delete item
         else:
             del bag[item_id]['items_by_size'][size]
+            # If no other sizes in bag, delete item id completely
+            if not bag[item_id]['items_by_size']:
+                bag.pop(item_id)
 
     # If no size, update quantity
     else:
@@ -90,3 +93,33 @@ def adjust_bag(request, item_id):
 
     # Redirect to last page visited
     return redirect(reverse('view_bag'))
+
+def remove_from_bag(request, item_id):
+    '''Deletes item from bag'''
+
+    try:
+    # Check for product size
+        size = None
+        if 'product_size' in request.POST:
+            size = request.POST['product_size']
+        # If bag exists in session fetches it, else create empty bag
+        bag = request.session.get('bag', {})
+
+        # Check if product being altered has a Size
+        if size:
+            del bag[item_id]['items_by_size'][size]
+            # If no other sizes in bag, delete item id completely
+            if not bag[item_id]['items_by_size']:
+                bag.pop(item_id)
+        else:
+            bag.pop(item_id)
+
+
+        # Pushes bag back to session
+        request.session['bag'] = bag
+
+        # Redirect to last page visited
+        return HttpResponse(status=200)
+
+    except Exception as e: #pylint: disable=W0612,W0718
+        return HttpResponse(status=500)
