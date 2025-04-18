@@ -1,6 +1,10 @@
 '''Bag Views'''
 from django.shortcuts import render, redirect, HttpResponse
 from django.urls import reverse
+from django.contrib import messages
+
+from products.models import Product
+
 
 def view_bag(request):
     '''Returns bag page'''
@@ -10,6 +14,7 @@ def add_to_bag(request, item_id):
     '''Adds items to the bag'''
 
     # Fetch variables from page
+    product = Product.objects.get(pk=item_id) #pylint: disable=E1101
     quantity = int(request.POST.get('quantity'))
     redirect_url = request.POST.get('redirect_url')
 
@@ -48,6 +53,7 @@ def add_to_bag(request, item_id):
         else:
             # If not, add new key to bag
             bag[item_id] = quantity
+            messages.success(request, f'Added {product.name} to your bag')
 
     # Pushes bag back to session
     request.session['bag'] = bag
