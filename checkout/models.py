@@ -54,6 +54,9 @@ class Order(models.Model):
             self.order_number = self._generate_order_number()
         super().save(*args, **kwargs)
 
+    def __str__(self):
+        return self.order_number
+
 # pylint: disable=C0301
 class OrderLineItem(models.Model):
     '''Class for line item, allowing iteration through each item in the bag'''
@@ -72,3 +75,6 @@ class OrderLineItem(models.Model):
         self.lineitem_total = self.product.price * self.quantity # pylint: disable=E1101
 
         super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f'SKU {self.product.sku} on order {self.order.order_number}' # pylint: disable=E1101
