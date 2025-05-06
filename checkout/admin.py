@@ -9,12 +9,12 @@ class OrderLineItemAdminInline(admin.TabularInline):
     and editing of line items inside the Order model'''
 
     model = OrderLineItem
-    readonly_fields = 'lineitem_total'
+    readonly_fields = ('lineitem_total',)
 
 class OrderAdmin(admin.ModelAdmin):
     '''Admin class for Order models'''
 
-    inlines = OrderLineItemAdminInline
+    inlines = (OrderLineItemAdminInline,)
 
     readonly_fields = (
         'order_number', 'date', 'delivery_cost',
@@ -34,5 +34,7 @@ class OrderAdmin(admin.ModelAdmin):
         'delivery_cost', 'order_total', 'grand_total'
     )
 
-    ordering = '-date'
+    ordering = ('-date',)
     # orders by date in reverse order, most recent first
+
+admin.site.register(Order, OrderAdmin)
